@@ -18,8 +18,8 @@ k = 175;                % k         - N / m
 rho = 1070;             % rho       - kg / m^3
 ry = H - rab;
 
-t4 = 0.8:0.0001:2;
-dt = 0.001;
+t4 = 0.8:0.00001:2;
+dt = 0.01;
 
 END = 100;
 
@@ -63,27 +63,44 @@ for i = 1:END/dt
 end
 toc
 
+%% Save data to .mat file
+%
+
+save data_lowRes.mat
+
 %% Plotting
 %
 
 close all;
 
 fig = figure();
+fig2 = figure();
+
 ax1 = axes(fig, 'next', 'add', 'position', [0.12, 0.6, 0.8, 0.35],...
     'fontsize', 14, 'xgrid', 'on', 'ygrid', 'on');
 ax2 = axes(fig, 'next', 'add', 'position', [0.12, 0.12, 0.8, 0.35],...
+    'fontsize', 14, 'xgrid', 'on', 'ygrid', 'on');
+
+ax3 = axes(fig2, 'next', 'add',...
     'fontsize', 14, 'xgrid', 'on', 'ygrid', 'on');
 
 plot(ax1, t, rx)
 plot(ax1, t, r41)
 plot(ax2, t, theta4)
 plot(ax2, t, theta5)
+plot(ax3, t, theta2)
 
 legend(ax1, 'r_x', 'r_{4,1}', 'location', 'best');
 legend(ax2, '\theta_4', '\theta_5', 'location', 'best');
+legend(ax3, '\theta_2', 'location', 'best');
 
 xlabel(ax1, 'time (s)');
 xlabel(ax2, 'time (s)');
+xlabel(ax3, 'time (s)');
 
 ylabel(ax1, 'distance (m)');
 ylabel(ax2, 'angle (rad)');
+ylabel(ax3, 'angle (rad)');
+
+
+
